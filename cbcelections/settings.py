@@ -78,11 +78,14 @@ WSGI_APPLICATION = 'cbcelections.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': os.environ.get('Database'),
+        'USER': os.environ.get('User'),
+        'PASSWORD': os.environ.get('Port'),
+        'HOST': os.environ.get('Host'),
+        'PORT': '5432',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -127,6 +130,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+try:
+    from cbcelections.settings_local import *
+except ImportError:
+    pass
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

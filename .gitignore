@@ -1,0 +1,4 @@
+/cbcelections/settings_local.py
+db.local
+db.sqlite3
+.idea/
