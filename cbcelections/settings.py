@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 import django_heroku
+import dj_database_url
 
 import os
 from pathlib import Path
@@ -81,12 +82,14 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': os.environ.get('Database'),
         'USER': os.environ.get('User'),
-        'PASSWORD': os.environ.get('Port'),
+        'PASSWORD': os.environ.get('Password'),
         'HOST': os.environ.get('Host'),
         'PORT': '5432',
     }
 }
 
+db_from_env = dj_database_url.config(conn_max_age=600)
+DATABASES['default'].update(db_from_env)
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
